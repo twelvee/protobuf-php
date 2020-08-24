@@ -7,10 +7,8 @@ RUN mkdir -p /tmp/grpc && cd /tmp/grpc && \
     git submodule update --init && \
     make grpc_php_plugin
 
-COPY docker-entrypoint.sh /docker-entrypoint.sh
+COPY protoc-wrapper /usr/bin/protoc-wrapper
 
-WORKDIR /proto
+ENV LD_LIBRARY_PATH='/usr/lib:/usr/lib64:/usr/lib/local'
 
-ENTRYPOINT ["/docker-entrypoint.sh"]
-
-CMD ["protoc"]
+ENTRYPOINT ["protoc-wrapper", "-I/usr/include"]
