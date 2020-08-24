@@ -6,3 +6,11 @@ RUN mkdir -p /tmp/grpc && cd /tmp/grpc && \
     git clone -b v1.30.0 https://github.com/grpc/grpc && cd grpc && \
     git submodule update --init && \
     make grpc_php_plugin
+
+COPY docker-entrypoint.sh /docker-entrypoint.sh
+
+WORKDIR /proto
+
+ENTRYPOINT ["/docker-entrypoint.sh"]
+
+CMD ["protoc"]
